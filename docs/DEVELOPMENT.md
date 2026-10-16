@@ -26,6 +26,20 @@ Product rules are documented in `docs/design/`. Preserve the separation between 
 
 Build with `desktop/build.ps1` using the .NET Framework compiler. The script downloads the WebView2 SDK and builds a host for the same local service. Node.js and WebView2 Runtime are separate prerequisites. Browser usage does not require the desktop host.
 
+## Windows installer and releases
+
+On Windows x64, run `npm ci` followed by `npm run dist:win`. This builds the frontend and native host, collects only the required server modules and full production dependency licenses, bundles Node.js 24.18.1, and creates an Inno Setup 6.7.3 installer plus SHA-256 checksums in `release/`. Build tools and downloads are cached in `.desktop-deps/` and excluded from Git and source exports.
+
+Node downloads are checked against the official release's SHA-256 list; the Inno installer and Microsoft WebView2 bootstrapper require valid publisher signatures. The compiler is installed in the local build cache. The first build requires internet access. `npm run build:desktop` builds only the host.
+
+The setup runs per user without elevation, installs into `%LOCALAPPDATA%\Programs\ReasonContour`, and creates a Start menu shortcut. A desktop shortcut is optional. Existing WebView2 installations are reused; otherwise the Microsoft bootstrapper installs the Evergreen runtime using the internet. No Node.js installation, npm, source checkout, or `node_modules/` is required on the user's machine. Windows 10 build 19041+ and Windows 11 x64 are supported. The installer is unsigned unless the maintainer adds code signing.
+
+An `installed.json` marker selects installed mode. The host prefers its bundled `runtime/node.exe` and stores project data and WebView2 profiles under `%LOCALAPPDATA%\ReasonContour`. `REASONCONTOUR_NODE` and `REASONCONTOUR_DATA_DIR` remain explicit overrides. Source checkouts retain their existing data locations. Upgrades and uninstallation do not delete user data. Copying source-checkout data is a separate manual operation; old storage formats are not migrated.
+
+`npm run test:installer` silently installs into an isolated path, launches the real WebView2 host without Node on PATH, verifies bundled Node and installed data routing, exercises CLI, reinstalls, uninstalls, and checks retained user-created files. It refuses to overwrite an existing user's registered installation. Run it in CI or a clean Windows account. The desktop self-test uses isolated data, never existing projects.
+
+`.github/workflows/release.yml` runs on version tags and manual dispatch. It builds and tests the installer on Windows. Manual runs upload an Actions artifact; tags matching `package.json` publish the installer and checksums as a GitHub Release only after successful tests. Edit `docs/RELEASE_NOTES.md`, commit, and push `v<package version>` to release.
+
 ## Source export
 
 `npm run export:source -- /absolute/new/destination` copies an explicit allowlist into a new directory and writes `SOURCE_MANIFEST.json` with SHA-256 hashes. It excludes project data, local settings, credentials, caches, dependencies, and build output. The manifest describes the source snapshot at export time.

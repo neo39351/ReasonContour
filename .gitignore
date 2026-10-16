@@ -35,3 +35,4 @@ work/
 *.pfx
 *.p12
 coverage/
+release/

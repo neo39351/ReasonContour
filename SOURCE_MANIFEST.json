@@ -3,13 +3,13 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 4313,
-      "sha256": "9fccdc2f19400ccf7c164f3030c704372192504f6b519237a11c7c8de5524a79"
+      "bytes": 5495,
+      "sha256": "32604d2f8eac2338a35e46e51db11d23c98fc52d43bed7ddfad90034e1d8f1cf"
     },
     {
       "path": "README.en.md",
-      "bytes": 4579,
-      "sha256": "1599d17664f457caf8042a65548298f8303938cce458f6b207ba3c3ff31fb47e"
+      "bytes": 5862,
+      "sha256": "61b82e706950890037749d67cfbf3ee38ef289fee59b136358aa749a851ee1c3"
     },
     {
       "path": ".gitattributes",
@@ -28,18 +28,18 @@
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
-      "bytes": 787,
-      "sha256": "31807a15394d5b5ff2e1805222c098aa14e70d8919cdfbd59f0d9970a342c82d"
+      "bytes": 1264,
+      "sha256": "a4243383f95f7d41cc0304da6360905cf8f68a2f23ded983623254611922b634"
     },
     {
       "path": ".gitignore",
-      "bytes": 455,
-      "sha256": "50307c2c2ad47c43e16b02b9efea405d82abc31ba3bd7e5d65385a08dea1cc74"
+      "bytes": 464,
+      "sha256": "4f459661d4d6a18b965204c0f1e899c7ad8d2ab87f29f01460a0d42a961ac73c"
     },
     {
       "path": "package.json",
-      "bytes": 1520,
-      "sha256": "a7af7e43e984c494f089e1344b0165332c5cbff870b665fa11f4bb24f013deb7"
+      "bytes": 1711,
+      "sha256": "d0bb603ed44be48df09c47b0e55305817777d3b52f6ea7514093aa4e8197451f"
     },
     {
       "path": "package-lock.json",
@@ -50,6 +50,41 @@
       "path": ".github/workflows/ci.yml",
       "bytes": 815,
       "sha256": "a291d38af2cb441ec1303cd06c1da551731a289a862ae1c8f2e1f585cd9e48bc"
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "bytes": 1540,
+      "sha256": "f88582a5a360c22c2ca83d82ce618f90c8ab766a9c5320854a376d4b6953c148"
+    },
+    {
+      "path": "docs/RELEASE_NOTES.md",
+      "bytes": 1335,
+      "sha256": "e71083471c05cbe9c17c30256a7f476447c29afbd24d527242ad8518a97f1b71"
+    },
+    {
+      "path": "desktop/build-installer.ps1",
+      "bytes": 6013,
+      "sha256": "bcd77813246a22d8209adcedafe4c77dcaf36c2dda0303401f0eeb4c16eb38a6"
+    },
+    {
+      "path": "desktop/test-installer.ps1",
+      "bytes": 5247,
+      "sha256": "e8fe867f69904f079b7f8962a5ecadb2222e41f970f99657105b05085d2ac95b"
+    },
+    {
+      "path": "desktop/installer.iss",
+      "bytes": 3212,
+      "sha256": "11ae9edd83a808d8abc1ff9ffa7ba2021bf07cd3a8666e01c6dcdcf843a67723"
+    },
+    {
+      "path": "scripts/windows-build.mjs",
+      "bytes": 1044,
+      "sha256": "4abf19a00b280afe52ffe2eee620d53e8b9129bbac728bd272e4c3fe31c51a80"
+    },
+    {
+      "path": "scripts/bundle-notices.mjs",
+      "bytes": 2218,
+      "sha256": "a0f733a90e9b44b74d26622a2b25523cd6a5d5116be02e37afc68a96fc926989"
     },
     {
       "path": "docs/assets/reasoncontour-light.zh-CN.png",
@@ -248,8 +283,8 @@
     },
     {
       "path": "desktop/ReasonContour.cs",
-      "bytes": 13210,
-      "sha256": "63872f860aa7d092f09ebff0179b48d790247469d0e6d8b691315e83985ceaae"
+      "bytes": 14173,
+      "sha256": "e8c7cfa9b105a12822729ae968121a3396bc7301e44a125e844ba5772fa764fc"
     },
     {
       "path": "desktop/build.ps1",
@@ -283,8 +318,8 @@
     },
     {
       "path": "docs/DEVELOPMENT.md",
-      "bytes": 2616,
-      "sha256": "44122d5d7412a841772236d6da390666a181b107d23fd43177cff2bfa093bc77"
+      "bytes": 5119,
+      "sha256": "9c096caa74fd921cf884559c2c62799c189bfcbbb8f779dd21d9d7cf28d86fbd"
     },
     {
       "path": "skills/reasoncontour/SKILL.md",
@@ -298,8 +333,8 @@
     },
     {
       "path": "scripts/export-source.mjs",
-      "bytes": 2983,
-      "sha256": "b9e4df5892ca47e8708fdff45dbfecace0019ef3c98907606f1f2afaab38c603"
+      "bytes": 3192,
+      "sha256": "172ebf92d63a0df70990945bf4b52b2c70a2e47a2d6d093e73e0738b1d9e9844"
     }
   ]
 }

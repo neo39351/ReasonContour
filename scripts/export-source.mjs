@@ -9,6 +9,9 @@ if (!destination || destination === root || destination.startsWith(root + path.s
 const files = [
   'README.md', 'README.en.md', '.gitattributes', 'LICENSE', 'CONTRIBUTING.md', 'THIRD_PARTY_NOTICES.md', '.gitignore', 'package.json', 'package-lock.json',
   '.github/workflows/ci.yml',
+  '.github/workflows/release.yml', 'docs/RELEASE_NOTES.md',
+  'desktop/build-installer.ps1', 'desktop/test-installer.ps1', 'desktop/installer.iss',
+  'scripts/windows-build.mjs', 'scripts/bundle-notices.mjs',
   'docs/assets/reasoncontour-light.zh-CN.png', 'docs/assets/reasoncontour-light.en.png', 'scripts/capture-readme.mjs',
   'app/agent-context.mjs', 'app/preferences.mjs', 'app/storage.mjs', 'app/model.mjs', 'app/service.mjs', 'app/server.mjs', 'app/connection.mjs', 'app/cli.mjs', 'app/mcp.mjs', 'app/tools.mjs', 'app/vite.config.mjs',
   'app/ui/index.html', 'app/ui/main.jsx', 'app/ui/style.css', 'app/ui/shell.css', 'app/ui/graph-layout.mjs', 'app/ui/appearance.jsx', 'app/ui/theme.css', 'app/ui/public/logo.svg', 'app/ui/public/logo.ico', 'app/ui/public/logo.png', 'app/ui/i18n.jsx',

@@ -27,6 +27,10 @@
 
 ## 快速开始
 
+**Windows 安装版：**前往 [Releases](https://github.com/neo39351/ReasonContour/releases/latest) 下载 `windows-x64-setup.exe` 安装程序。无需安装 Node.js；系统缺少 WebView2 时，安装程序会联网自动补齐。
+
+**从源码运行：**
+
 需要 **Node.js 22.12 或更高版本**。
 
 ```sh
@@ -62,6 +66,21 @@ ReasonContour 本身不运行模型，也不会自动读取其他聊天。自动
 讨论以明文文件保存在本机 `projects/` 目录。可通过环境变量 `REASONCONTOUR_DATA_DIR` 指定其他位置。没有内置账号、遥测或自动云备份；接入外部 AI 后，其数据处理遵循你选择的 AI 客户端和服务配置。
 
 当前存储格式为 **v4**，旧格式不会自动迁移；请为旧数据保留备份或使用独立数据目录。
+
+Windows 安装版默认将讨论保存在 `%LOCALAPPDATA%\ReasonContour\projects`，卸载会保留数据。源码版仍使用项目目录下的 `projects/`，两者不会自动互相导入。
+
+## 构建 Windows 安装包
+
+在 Windows x64 上运行：
+
+```powershell
+npm ci
+npm run dist:win
+```
+
+输出为 `release/ReasonContour-0.5.2-windows-x64-setup.exe`，同时生成 `SHA256SUMS.txt`。构建会自动下载并验证 Node.js、WebView2 引导程序和 Inno Setup 编译器，首次构建需要联网。安装包内置运行时、应用和依赖许可，支持中英文安装、开始菜单快捷方式及卸载。
+
+`npm run test:installer` 可在没有已安装 ReasonContour 的 Windows 用户环境中验证安装、启动、重新安装和卸载。推送与 `package.json` 版本一致的 `v*` 标签，会在 GitHub Actions 完成测试后自动发布 Release。详情见 [开发说明](docs/DEVELOPMENT.md)。
 
 ## 开发与贡献
 

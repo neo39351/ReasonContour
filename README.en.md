@@ -27,6 +27,10 @@ Complex discussions with AI can easily drift. Conclusions pile up; earlier decis
 
 ## Quick start
 
+**Windows installer:** download the `windows-x64-setup.exe` installer from [Releases](https://github.com/neo39351/ReasonContour/releases/latest). Node.js is bundled. If WebView2 is missing, Setup installs it automatically using an internet connection.
+
+**Run from source:**
+
 Requires **Node.js 22.12 or later**.
 
 ```sh
@@ -62,6 +66,21 @@ The side panel follows the current frontier. Select another conclusion to pin it
 Discussions are stored as plaintext files in `projects/` on your machine. Set `REASONCONTOUR_DATA_DIR` to use another location. There are no built-in accounts, telemetry, or automatic cloud backups. When you connect an external AI, its data handling follows your chosen client and service configuration.
 
 The current storage format is **v4**. Older formats are not migrated automatically; keep a backup or use a separate data directory.
+
+The Windows installation stores discussions in `%LOCALAPPDATA%\ReasonContour\projects` and retains them on uninstall. Source checkouts still use their own `projects/` directory. Data is not imported between these locations automatically.
+
+## Build a Windows installer
+
+Run on Windows x64:
+
+```powershell
+npm ci
+npm run dist:win
+```
+
+Output: `release/ReasonContour-0.5.2-windows-x64-setup.exe` and `SHA256SUMS.txt`. The build downloads and verifies Node.js, the WebView2 bootstrapper, and the Inno Setup compiler; the first build requires internet access. The installer includes the runtime, application, and dependency licenses, with English / Chinese installation, Start menu shortcuts, and uninstallation.
+
+Run `npm run test:installer` in a clean Windows account without an existing ReasonContour installation to verify install, launch, reinstall, and uninstall. Pushing a `v*` tag matching `package.json` publishes a GitHub Release after the installer tests pass. See [Development](docs/DEVELOPMENT.md).
 
 ## Development and contributions
 

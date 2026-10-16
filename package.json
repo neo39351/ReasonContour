@@ -20,7 +20,10 @@
     "test:live": "node app/tests/live-updates.mjs",
     "test:drag": "node app/tests/drag-updates.mjs",
     "test:manual": "node app/tests/manual-browser.mjs",
-    "capture:readme": "node scripts/capture-readme.mjs"
+    "capture:readme": "node scripts/capture-readme.mjs",
+    "build:desktop": "node scripts/windows-build.mjs host",
+    "dist:win": "node scripts/windows-build.mjs installer",
+    "test:installer": "node scripts/windows-build.mjs test-installer"
   },
   "dependencies": {
     "@xyflow/react": "12.12.0",

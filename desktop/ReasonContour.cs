@@ -13,7 +13,9 @@ internal static class Program {
     [STAThread] static void Main(string[] args) {
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
-        Application.Run(new CanvasWindow(Array.IndexOf(args, "--self-test") >= 0));
+        using (var applicationMutex = new System.Threading.Mutex(false, @"Local\ReasonContour.Desktop")) {
+            Application.Run(new CanvasWindow(Array.IndexOf(args, "--self-test") >= 0));
+        }
     }
 }
 internal sealed class CanvasWindow : Form {
@@ -26,6 +28,10 @@ internal sealed class CanvasWindow : Form {
     bool chinese;
     bool dark;
     bool stopping;
+    string nodePath;
+    string dataPath;
+    bool Installed { get { return File.Exists(Path.Combine(root, "installed.json")); } }
+    string UserRoot { get { return Installed ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ReasonContour") : root; } }
     FormWindowState restoredState = FormWindowState.Normal;
     [DllImport("dwmapi.dll")] static extern int DwmSetWindowAttribute(IntPtr handle, int attribute, ref int value, int size);
     [DllImport("dwmapi.dll")] static extern int DwmGetWindowAttribute(IntPtr handle, int attribute, out int value, int size);
@@ -97,9 +103,12 @@ internal sealed class CanvasWindow : Form {
     async Task Start() {
         try {
             string node = Environment.GetEnvironmentVariable("REASONCONTOUR_NODE");
+            if (String.IsNullOrEmpty(node) && File.Exists(Path.Combine(root, "runtime", "node.exe"))) node = Path.Combine(root, "runtime", "node.exe");
             if (String.IsNullOrEmpty(node)) { foreach (string folder in (Environment.GetEnvironmentVariable("PATH") ?? "").Split(Path.PathSeparator)) { string candidate = Path.Combine(folder.Trim('"'), "node.exe"); if (File.Exists(candidate)) { node = candidate; break; } } }
             if (!File.Exists(node)) throw new Exception("Node.js was not found. Add it to PATH or set REASONCONTOUR_NODE to node.exe.");
-            string data = test ? Path.Combine(root, ".test-data", "desktop-data") : (Environment.GetEnvironmentVariable("REASONCONTOUR_DATA_DIR") ?? Path.Combine(root, "projects"));
+            string data = test ? Path.Combine(root, ".test-data", "desktop-data") : (Environment.GetEnvironmentVariable("REASONCONTOUR_DATA_DIR") ?? Path.Combine(UserRoot, "projects"));
+            nodePath = node;
+            dataPath = data;
             Directory.CreateDirectory(data);
             var start = new ProcessStartInfo(node, "\"" + Path.Combine(root, "app\\server.mjs") + "\"");
             start.WorkingDirectory = root; start.UseShellExecute = false; start.CreateNoWindow = true;
@@ -116,7 +125,7 @@ internal sealed class CanvasWindow : Form {
             server.BeginErrorReadLine();
             web = new WebView2 { Dock = DockStyle.Fill, DefaultBackgroundColor = BackColor };
             Controls.Add(web);
-            var environment = await CoreWebView2Environment.CreateAsync(null, Path.Combine(root, test ? ".test-data" : ".runtime", "desktop-profile"));
+            var environment = await CoreWebView2Environment.CreateAsync(null, Path.Combine(test ? root : UserRoot, test ? ".test-data" : ".runtime", "desktop-profile"));
             await web.EnsureCoreWebView2Async(environment);
             web.CoreWebView2.WebMessageReceived += (s, e) => HostAppearance(e.WebMessageAsJson);
             web.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
@@ -187,6 +196,7 @@ internal sealed class CanvasWindow : Form {
         using (var stream = File.Create(evidence)) await web.CoreWebView2.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, stream);
         string state = await web.CoreWebView2.ExecuteScriptAsync("JSON.stringify({title:document.title,nodes:document.querySelectorAll('[data-thought]').length,toolbar:!!document.querySelector('.topbar'),runtime:navigator.userAgent})");
         File.WriteAllText(Path.Combine(root, ".test-data\\desktop-test.json"), state);
+        File.WriteAllText(Path.Combine(root, ".test-data\\desktop-package-test.json"), new JavaScriptSerializer().Serialize(new { installedMode = Installed, bundledNode = nodePath == Path.Combine(root, "runtime", "node.exe"), dataDirectory = dataPath, defaultDataDirectory = Path.Combine(UserRoot, "projects") }));
         File.WriteAllText(Path.Combine(root, ".test-data\\desktop-tray-test.json"), "{\"icon\":true,\"halfScreenSize\":true,\"taskbarMinimize\":true,\"trayMinimize\":true,\"restore\":true,\"localizedMenu\":true,\"darkTitleBarRestored\":true,\"lightTitleBarRestored\":true,\"handleRecreation\":true,\"maximizedRestore\":true}");
         Close();
     }
