@@ -1,0 +1,52 @@
+import React, { createContext, useContext } from 'react';
+export const LocaleContext = createContext('en');
+const words = {
+  '对齐': 'Aligned',
+  '进行中': 'In progress',
+  '暂定': 'Tentative',
+  '被否': 'Rejected',
+  '修正': 'Revised',
+  '你': 'You',
+  '双方对齐': 'Aligned',
+  '重点': 'Key',
+  '已删除': 'Deleted',
+  '出口': 'Exit',
+  '入口': 'Entry',
+  '删除': 'Delete',
+  '升为主图节点': 'Promote to main',
+  '适应': 'Fit',
+  '缩小': 'Zoom out',
+  '放大': 'Zoom in',
+  '节点操作': 'Node actions',
+  '副图节点操作': 'Side node actions',
+  '编辑主图标题': 'Edit main title',
+  '当前倾向': 'Current leaning',
+  '搜索': 'Search',
+  '更多操作': 'More actions',
+  '关闭副屏': 'Close side panel',
+  '解除钉住': 'Unpin',
+  '接收节点': 'Receiving node',
+  '暂无正文': 'No body yet',
+  '来源': 'Sources',
+  '待审修订': 'Pending revision',
+  '接受修订': 'Accept revision',
+  '拒绝': 'Reject',
+  '尚未刷新': 'No previous versions',
+  '撤销': 'Undo',
+  '重做': 'Redo',
+  '取消': 'Cancel',
+  '创建': 'Create',
+  '项目名称': 'Project name',
+  '复制 MCP 配置': 'Copy MCP configuration',
+  '暂停': 'Pause',
+  '恢复': 'Resume',
+  '将此项目移入回收站': 'Move project to recycle bin',
+  '由哪个后继接收副图？': 'Which successor receives the derivation?',
+  '删除并并入': 'Delete and transfer',
+  '合并预览 · 松手保存': 'Merge preview · release to save',
+  '调整副屏宽度': 'Resize side panel'
+};
+export function useText() {
+  const locale = useContext(LocaleContext);
+  return text => locale === 'en' ? words[text] || text : text;
+}

@@ -1,0 +1,53 @@
+{
+  "name": "reasoncontour",
+  "version": "0.5.2",
+  "private": true,
+  "type": "module",
+  "description": "Trace how you and AI reach conclusions with an evolving reasoning map.",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "start": "node app/server.mjs",
+    "mcp": "node app/mcp.mjs",
+    "rc": "node app/cli.mjs",
+    "build": "vite build --config app/vite.config.mjs",
+    "test": "node --test --test-concurrency=1 app/tests/*.test.mjs",
+    "test:browser": "node app/tests/browser.mjs",
+    "export:source": "node scripts/export-source.mjs",
+    "build:icons": "node scripts/build-icons.mjs",
+    "test:appearance": "node app/tests/appearance.mjs",
+    "test:live": "node app/tests/live-updates.mjs",
+    "test:drag": "node app/tests/drag-updates.mjs",
+    "test:manual": "node app/tests/manual-browser.mjs",
+    "capture:readme": "node scripts/capture-readme.mjs"
+  },
+  "dependencies": {
+    "@xyflow/react": "12.12.0",
+    "dompurify": "3.4.16",
+    "elkjs": "0.12.0",
+    "marked": "18.1.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "playwright": "1.64.0",
+    "vite": "8.3.4"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neo39351/ReasonContour.git"
+  },
+  "homepage": "https://github.com/neo39351/ReasonContour#readme",
+  "bugs": {
+    "url": "https://github.com/neo39351/ReasonContour/issues"
+  },
+  "keywords": [
+    "reasoning",
+    "ai",
+    "knowledge-map",
+    "mcp",
+    "local-first"
+  ]
+}
